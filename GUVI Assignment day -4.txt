@@ -1,0 +1,58 @@
+1.How to compare two JSON have the same properties without order?
+a. var obj1 = { name: "Person 1", age:5 };
+b. var obj2 = { age:5, name: "Person 1" };
+
+ANS-To compare two JSON having same properties without order, one must use Lodash isEqual function because it compares the key values of the objects in the case when it is in same order or different order. It returns true if all the key values of the compared objects are equal.
+CODE-
+var obj1 = { name: "Person 1", age:5 };
+var obj2 = { age:5, name: "Person 1" };
+_.isEqual(obj1,obj2); //returns true
+
+2.Use the rest countries API url -> https://raw.githubusercontent.com/rvsp/restcountries-json-data/master/res-countries.json and display all the country flags in console
+
+ANS-
+CODE-
+var xhr=new XMLHttpRequest();                  //create Xml http request
+xhr.open("GET", "https://raw.githubusercontent.com/rvsp/restcountries-json-data/master/res-countries.json");
+xhr.send();
+                                               //adding listener to process the request
+xhr.onload=function() {                        //processing the request and the server will return data
+    if(xhr.status>=200&& xhr.status<300){
+        var data=JSON.parse(xhr.response);     //converting raw data to js notation
+        for(var i=0;i<data.length;i++){       //Looping through data starts
+            var user= data[i];
+            console.log(`
+            Country Flag:${user.flag}         //to display all the country flags
+            `);
+        }
+    }
+    else{
+        console.log("Data not available");    //If there is any error due to api endpoint or server problem then else is used to print error
+    }
+}
+
+3.Use the same rest countries and print all countries name, region, sub region and population
+
+ANS-
+CODE-
+var xhr=new XMLHttpRequest();                 //create Xml http request
+xhr.open("GET", "https://raw.githubusercontent.com/rvsp/restcountries-json-data/master/res-countries.json");
+xhr.send();
+                                             //adding listener to process the request
+xhr.onload=function() {                      //processing the request and the server will return data
+    if(xhr.status>=200&& xhr.status<300){
+        var data=JSON.parse(xhr.response);   //converting raw data to js notation
+        for(var i=0;i<data.length;i++){      //Looping through data starts
+            var user= data[i];
+            console.log(`
+            Country Name:${user.name}               //to display all the country name
+            Country Region:${user.region}           //to display all the country region
+            Country Sub region:${user.subregion}    //to display all the country sub region
+            Country Population:${user.population}   //to display all the country population
+            `);
+        }
+    }
+    else{
+        console.log("Data not available");    //If there is any error due to api endpoint or server problem then else is used to print error
+    }
+}
